@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Masterclass — Student Notes</title>
+<style>
+  @page {
+    size: A4;
+    margin: 2.2cm 1.8cm 2.2cm 1.8cm;
+    @bottom-center {
+      content: "CSS Masterclass — Student Notes  |  Page " counter(page) " of " counter(pages);
+      font-size: 8.5pt;
+      color: #8a8a8a;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+  }
+  @page cover { margin: 0; }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 10.8pt;
+    line-height: 1.55;
+    color: #232323;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #14213D;
+  }
+
+  /* ---------------- COVER PAGE ---------------- */
+  .cover {
+    page: cover;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(160deg, #14213D 0%, #1d2f57 55%, #0f6e5c 220%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 5cm 0 2.4cm;
+    page-break-after: always;
+  }
+  .cover .tag {
+    font-family: 'Courier New', monospace;
+    font-size: 13pt;
+    letter-spacing: 3px;
+    color: #FCA311;
+    margin-bottom: 0.3cm;
+  }
+  .cover h1 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #ffffff;
+    font-size: 46pt;
+    line-height: 1.05;
+    margin: 0 0 0.4cm 0;
+    font-weight: 800;
+  }
+  .cover h1 span { color: #FCA311; }
+  .cover .subtitle {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13pt;
+    color: #d9e0ee;
+    max-width: 13.5cm;
+    margin-bottom: 1cm;
+    font-weight: 300;
+  }
+  .cover .pillbar { display: flex; gap: 0.5cm; flex-wrap: wrap; margin-top: 0.4cm; }
+  .cover .pill {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 20px;
+    padding: 0.18cm 0.5cm;
+    font-size: 9.5pt;
+    color: #f0f0f0;
+  }
+  .cover .footer-note {
+    position: absolute;
+    bottom: 1.4cm;
+    left: 2.4cm;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9pt;
+    color: #b9c2d6;
+  }
+
+  /* ---------------- TOC ---------------- */
+  .toc { page-break-after: always; }
+  .toc h2 {
+    font-size: 22pt;
+    border-bottom: 3px solid #14213D;
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.6cm;
+  }
+  .toc-list { list-style: none; padding: 0; margin: 0; }
+  .toc-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.16cm 0;
+    border-bottom: 1px dotted #cccccc;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10.5pt;
+  }
+  .toc-list li .num { color: #0f6e5c; font-weight: 700; width: 0.9cm; display: inline-block; }
+  .toc-list li .fill { color: #999; }
+
+  /* ---------------- MODULE HEADERS ---------------- */
+  .module { page-break-before: always; }
+  .module-head {
+    background: #14213D;
+    color: white;
+    padding: 0.55cm 0.8cm;
+    border-radius: 6px;
+    margin-bottom: 0.6cm;
+  }
+  .module-head .eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9pt;
+    letter-spacing: 2px;
+    color: #FCA311;
+    margin-bottom: 0.1cm;
+  }
+  .module-head h2 { font-family: 'Helvetica Neue', Arial, sans-serif; color: white; font-size: 19pt; margin: 0; }
+  .module-head .desc { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9.5pt; color: #cbd3e6; margin-top: 0.15cm; }
+
+  h3.section-title {
+    font-size: 13pt;
+    color: #0f6e5c;
+    border-bottom: 2px solid #FCA311;
+    display: inline-block;
+    padding-bottom: 0.06cm;
+    margin-top: 0.7cm;
+    margin-bottom: 0.3cm;
+  }
+  h4.sub-title { font-size: 11pt; color: #14213D; margin-top: 0.5cm; margin-bottom: 0.2cm; }
+  p { margin: 0.25cm 0; }
+
+  /* ---------------- CODE ---------------- */
+  pre {
+    background: #1b1f2b;
+    color: #e6e6e6;
+    padding: 0.35cm 0.5cm;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 8.8pt;
+    line-height: 1.45;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0.25cm 0 0.4cm 0;
+    border-left: 4px solid #0f6e5c;
+  }
+  code {
+    font-family: 'Courier New', monospace;
+    background: #eef0f4;
+    color: #b33a00;
+    padding: 0.02cm 0.1cm;
+    border-radius: 3px;
+    font-size: 9.3pt;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+  .tag-name { color: #7cc0ff; }
+  .attr-name { color: #ffd479; }
+  .attr-val { color: #a0e6a0; }
+  .comment { color: #8a93a8; font-style: italic; }
+
+  /* ---------------- TABLES ---------------- */
+  table { width: 100%; border-collapse: collapse; margin: 0.3cm 0 0.45cm 0; font-size: 9.6pt; font-family: 'Helvetica Neue', Arial, sans-serif; }
+  th { background: #14213D; color: white; text-align: left; padding: 0.18cm 0.3cm; }
+  td { padding: 0.16cm 0.3cm; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f5f7fb; }
+
+  /* ---------------- CALLOUT BOXES ---------------- */
+  .box { border-radius: 5px; padding: 0.3cm 0.5cm; margin: 0.35cm 0; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9.8pt; }
+  .box-def { background: #eef2fb; border-left: 4px solid #3B5BDB; }
+  .box-why { background: #fff4e6; border-left: 4px solid #E8590C; }
+  .box-best { background: #ebfbee; border-left: 4px solid #2B8A3E; }
+  .box-title { font-weight: 700; text-transform: uppercase; font-size: 8.3pt; letter-spacing: 1px; margin-bottom: 0.12cm; display: block; }
+  .box-def .box-title { color: #3B5BDB; }
+  .box-why .box-title { color: #E8590C; }
+  .box-best .box-title { color: #2B8A3E; }
+
+  .grid2 { display: flex; gap: 0.5cm; }
+  .grid2 > div { flex: 1; }
+  .grid3 { display: flex; gap: 0.4cm; flex-wrap: wrap; }
+  .grid3 > div {
+    flex: 1 1 30%;
+    background: #f7f8fb;
+    border: 1px solid #e2e5ee;
+    border-radius: 5px;
+    padding: 0.25cm 0.35cm;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 9.3pt;
+    margin-bottom: 0.3cm;
+  }
+  .grid3 > div .num-badge {
+    display: inline-block;
+    background: #0f6e5c;
+    color: white;
+    width: 0.55cm; height: 0.55cm; line-height: 0.55cm;
+    text-align: center; border-radius: 50%;
+    font-weight: 700; font-size: 9pt; margin-bottom: 0.1cm;
+  }
+  .grid3 > div strong { display: block; color: #14213D; margin-bottom: 0.05cm; }
+
+  ul, ol { margin: 0.2cm 0 0.3cm 0.5cm; padding-left: 0.4cm; }
+  li { margin-bottom: 0.1cm; }
+
+  .checklist { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9.6pt; columns: 2; column-gap: 0.7cm; }
+  .checklist li { list-style: none; margin-bottom: 0.14cm; }
+  .checklist li:before { content: "✓ "; color: #2B8A3E; font-weight: 700; }
+
+  .practice-item { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9.8pt; padding: 0.2cm 0.35cm; border-radius: 4px; margin-bottom: 0.22cm; }
+  .easy { background: #ebfbee; border-left: 3px solid #2B8A3E; }
+  .medium { background: #fff9e0; border-left: 3px solid #F0A500; }
+  .advanced { background: #ffefef; border-left: 3px solid #E03131; }
+  .level-tag { font-weight: 700; margin-right: 0.2cm; }
+
+  .qa-block { margin-bottom: 0.32cm; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9.7pt; }
+  .qa-block .q { font-weight: 700; color: #14213D; }
+  .qa-block .a { color: #333; margin-top: 0.05cm; }
+  .qnum {
+    display: inline-block; background: #14213D; color: white;
+    width: 0.5cm; height: 0.5cm; line-height: 0.5cm;
+    text-align: center; border-radius: 50%; font-size: 8pt; margin-right: 0.2cm;
+  }
+
+  .project-meta { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 9.3pt; background: #f7f8fb; border: 1px solid #e2e5ee; border-radius: 5px; padding: 0.25cm 0.4cm; margin-top: 0.3cm; }
+  .project-meta strong { color: #14213D; }
+
+  .final-page {
+    page-break-before: always;
+    height: 100vh;
+    background: #14213D;
+    color: white;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  }
+  .final-page h2 { color: white; font-size: 26pt; }
+  .final-page p { color: #cbd3e6; font-family: 'Helvetica Neue', Arial, sans-serif; }
+
+  .note-small { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 8.6pt; color: #777; font-style: italic; }
+
+  .boxmodel { border: 2px dashed #E85D04; padding: 0.35cm; border-radius: 6px; margin: 0.3cm 0; font-family:'Helvetica Neue',Arial,sans-serif;}
+  .boxmodel .b { border: 2px solid #14213D; padding: 0.3cm; border-radius: 5px; }
+  .boxmodel .p { background: #eef2fb; padding: 0.3cm; border-radius: 4px; }
+  .boxmodel .c { background: #fff; border: 1px dashed #999; padding: 0.35cm; text-align: center; font-family:'Courier New',monospace; font-size: 8.6pt; }
+  .boxmodel .lbl { font-family:'Courier New',monospace; font-size: 7.6pt; color: #666; margin-bottom: 0.08cm; }
+</style>
+</head>
+<body>
+
+<!-- ============ COVER PAGE ============ -->
+<div class="cover">
+  <div class="tag">&lt;/&gt; CLASSROOM</div>
+  <h1>CSS<br><span>Masterclass</span></h1>
+  <div class="subtitle">From First Selector to Production-Ready Layouts — Box Model, Flexbox, Grid, Responsive Design, Animation &amp; Real Projects for Beginners
+    <br> <b><i>By Tanmay</i></b>
+  </div>
+  <div class="pillbar">
+    <div class="pill">Beginner Friendly</div>
+    <div class="pill">18 Modules</div>
+    <div class="pill">5 Projects</div>
+    <div class="pill">30 Interview Q&amp;A</div>
+  </div>
+  <div class="footer-note">Instructor-Led &nbsp;•&nbsp; Classroom Ready &nbsp;•&nbsp; Interview Oriented &nbsp;•&nbsp; Student Handout</div>
+</div>
+
+<!-- ============ TABLE OF CONTENTS ============ -->
+<div class="toc">
+  <h2>Table of Contents</h2>
+  <ul class="toc-list">
+    <li><span><span class="num">01</span>Introduction &amp; History of CSS</span><span class="fill">4</span></li>
+    <li><span><span class="num">02</span>Ways to Add CSS</span><span class="fill">5</span></li>
+    <li><span><span class="num">03</span>CSS Selectors</span><span class="fill">6</span></li>
+    <li><span><span class="num">04</span>Pseudo-classes &amp; Pseudo-elements</span><span class="fill">7</span></li>
+    <li><span><span class="num">05</span>Colors &amp; Backgrounds</span><span class="fill">8</span></li>
+    <li><span><span class="num">06</span>Typography &amp; Fonts</span><span class="fill">9</span></li>
+    <li><span><span class="num">07</span>The Box Model</span><span class="fill">10</span></li>
+    <li><span><span class="num">08</span>Display &amp; Position</span><span class="fill">11</span></li>
+    <li><span><span class="num">09</span>CSS Units</span><span class="fill">12</span></li>
+    <li><span><span class="num">10</span>Flexbox</span><span class="fill">13</span></li>
+    <li><span><span class="num">11</span>CSS Grid</span><span class="fill">14</span></li>
+    <li><span><span class="num">12</span>Lists, Tables &amp; Forms</span><span class="fill">15</span></li>
+    <li><span><span class="num">13</span>Responsive Design &amp; Media Queries</span><span class="fill">16</span></li>
+    <li><span><span class="num">14</span>Transitions, Transforms &amp; Animation</span><span class="fill">17</span></li>
+    <li><span><span class="num">15</span>Advanced CSS &amp; Architecture</span><span class="fill">18</span></li>
+    <li><span><span class="num">16</span>Mini Projects (5 Full Builds)</span><span class="fill">19</span></li>
+    <li><span><span class="num">17</span>Interview Questions (30 Q&amp;A)</span><span class="fill">20</span></li>
+    <li><span><span class="num">18</span>Practice Roadmap, Recap &amp; Cheat Sheet</span><span class="fill">21</span></li>
+  </ul>
+</div>
+
+<!-- ============ MODULE 1 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 01 / 18 &nbsp;·&nbsp; BASICS</div>
+    <h2>Introduction &amp; History of CSS</h2>
+    <div class="desc">What CSS is, who invented it, and why every website needs it</div>
+  </div>
+
+  <h3 class="section-title">What is CSS?</h3>
+  <p><strong>CSS</strong> stands for <strong>Cascading Style Sheets</strong> — the language used to describe how HTML elements should look: colour, spacing, layout, fonts and motion. HTML gives a page its structure and meaning; CSS gives it presentation.</p>
+
+  <div class="box box-def">
+    <span class="box-title">Definition</span>
+    A style sheet is a set of rules, each made of a <em>selector</em> (what to style) and a <em>declaration block</em> (how to style it). CSS applies these rules to HTML elements to control their appearance.
+  </div>
+
+  <h4 class="sub-title">The Web Trio</h4>
+  <div class="grid3">
+    <div><strong>🧱 HTML — Structure</strong>The walls &amp; rooms of a house. Defines layout and content.</div>
+    <div><strong>🎨 CSS — Style</strong>The paint, furniture &amp; decoration. Controls appearance.</div>
+    <div><strong>⚡ JS — Logic</strong>The lights, fans &amp; interactivity. Controls behaviour.</div>
+  </div>
+
+  <h3 class="section-title">Who Created CSS?</h3>
+  <p>CSS was proposed by <strong>Håkon Wium Lie</strong>, a Norwegian developer working alongside Tim Berners-Lee's team, as a way to let authors style documents without mixing presentation into the markup itself. It was later developed and standardised by the <strong>World Wide Web Consortium (W3C)</strong> — the same body that maintains HTML.</p>
+  <div class="box box-why">
+    <span class="box-title">Why it was needed</span>
+    Before CSS, styling was done with presentational HTML tags like <code>&lt;font&gt;</code> mixed directly into the markup. That made pages bloated and painful to maintain — one design change meant editing every page by hand.
+  </div>
+
+  <h4 class="sub-title">Breaking Down the Name</h4>
+  <ul>
+    <li><strong>Cascading</strong> — when multiple rules target the same element, CSS resolves conflicts in a predictable order (source order, specificity, <code>!important</code>).</li>
+    <li><strong>Style</strong> — the visual appearance given to an HTML element.</li>
+    <li><strong>Sheets</strong> — a collection of style rules, usually saved as a <code>.css</code> file.</li>
+  </ul>
+
+  <h3 class="section-title">CSS Today — Where It's Used</h3>
+  <p>Modern CSS is split into independent <strong>modules</strong> (Flexbox, Grid, Animations, Custom Properties, Media Queries) so each part can evolve on its own — informally this whole modern era is what people mean by "CSS3." Every modern browser (Chrome, Firefox, Safari, Edge) supports the vast majority of current CSS, and almost every website on the internet is styled with it — often together with a framework like <strong>Tailwind CSS</strong> or <strong>Bootstrap</strong>, or a preprocessor like <strong>Sass</strong>, which compiles down to plain CSS.</p>
+
+  <h3 class="section-title">Basic Syntax</h3>
+<pre><span class="tag-name">selector</span> {
+  <span class="attr-name">property</span>: <span class="attr-val">value</span>;
+}
+
+<span class="comment">/* example */</span>
+<span class="tag-name">h1</span> {
+  <span class="attr-name">color</span>: <span class="attr-val">navy</span>;
+  <span class="attr-name">font-size</span>: <span class="attr-val">32px</span>;
+}</pre>
+  <p class="note-small">Comments are written as /* like this */ and are ignored by the browser.</p>
+</div>
+
+<!-- ============ MODULE 2 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 02 / 18 &nbsp;·&nbsp; BASICS</div>
+    <h2>Ways to Add CSS</h2>
+    <div class="desc">Inline, internal, external — and which rule wins when they conflict</div>
+  </div>
+
+  <h3 class="section-title">1. Inline CSS</h3>
+  <p>Written directly on an element using the <code>style</code> attribute. Good for quick tests, bad for real projects — it can't be reused and is hard to maintain.</p>
+<pre>&lt;<span class="tag-name">p</span> <span class="attr-name">style</span>=<span class="attr-val">"color:#009900; font-size:20px;"</span>&gt;Hello&lt;/<span class="tag-name">p</span>&gt;</pre>
+
+  <h3 class="section-title">2. Internal CSS</h3>
+  <p>Written inside a <code>&lt;style&gt;</code> tag in the document's <code>&lt;head&gt;</code>. Useful for single-page demos, but doesn't scale across a multi-page site.</p>
+<pre>&lt;<span class="tag-name">head</span>&gt;
+  &lt;<span class="tag-name">style</span>&gt;
+    h1 { color: green; }
+  &lt;/<span class="tag-name">style</span>&gt;
+&lt;/<span class="tag-name">head</span>&gt;</pre>
+
+  <h3 class="section-title">3. External CSS</h3>
+  <div class="box box-best">
+    <span class="box-title">Best Practice</span>
+    Write CSS in a separate .css file and link it with &lt;link&gt;. One stylesheet can then style many pages, and HTML stays clean and readable.
+  </div>
+<pre>&lt;<span class="tag-name">link</span> <span class="attr-name">rel</span>=<span class="attr-val">"stylesheet"</span> <span class="attr-name">href</span>=<span class="attr-val">"style.css"</span>&gt;</pre>
+  <p>A fourth, less common option is <code>@import</code>, which pulls one stylesheet into another from inside CSS itself — including remote resources like Google Fonts.</p>
+<pre><span class="attr-name">@import</span> <span class="attr-val">url('https://fonts.googleapis.com/css2?family=Poppins&display=swap')</span>;</pre>
+
+  <h3 class="section-title">Which One Wins?</h3>
+  <p>When the same property is set in more than one place, CSS applies this order of priority:</p>
+  <p><strong>Inline CSS &gt; Internal / External CSS (later rule wins if equal specificity) &gt; Browser default styles.</strong></p>
+  <div class="box box-why">
+    <span class="box-title">Careful</span>
+    A rule marked !important overrides everything above — including inline styles. It's a useful escape hatch, but overusing it makes future CSS changes much harder to reason about.
+  </div>
+</div>
+
+<!-- ============ MODULE 3 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 03 / 18 &nbsp;·&nbsp; SELECTORS</div>
+    <h2>CSS Selectors</h2>
+    <div class="desc">Targeting exactly the elements you want to style</div>
+  </div>
+
+  <h3 class="section-title">Basic Selectors</h3>
+  <table>
+    <tr><th>Selector</th><th>Syntax</th><th>Selects</th></tr>
+    <tr><td>Universal</td><td><code>*</code></td><td>every element on the page</td></tr>
+    <tr><td>Element / tag</td><td><code>p</code>, <code>h1</code>, <code>div</code></td><td>every element of that tag</td></tr>
+    <tr><td>Class</td><td><code>.card</code></td><td>every element with <code>class="card"</code></td></tr>
+    <tr><td>ID</td><td><code>#hero</code></td><td>the one element with that unique id</td></tr>
+    <tr><td>Group</td><td><code>h1, h2, p</code></td><td>applies one rule to several selectors at once</td></tr>
+    <tr><td>Attribute</td><td><code>input[type="text"]</code></td><td>elements matching an attribute value</td></tr>
+  </table>
+
+  <h3 class="section-title">Combinators — Describing Relationships</h3>
+  <ul>
+    <li><code>div p</code> — <strong>descendant</strong>: any <code>p</code> nested anywhere inside a <code>div</code></li>
+    <li><code>div &gt; p</code> — <strong>child</strong>: only a <code>p</code> that is a direct child of <code>div</code></li>
+    <li><code>div + p</code> — <strong>adjacent sibling</strong>: the <code>p</code> immediately after a <code>div</code></li>
+    <li><code>div ~ p</code> — <strong>general sibling</strong>: every matching sibling that comes after the <code>div</code></li>
+  </ul>
+<pre><span class="tag-name">.card</span> <span class="tag-name">p</span>   { <span class="attr-name">background</span>: <span class="attr-val">red</span>; }   <span class="comment">/* descendant */</span>
+<span class="tag-name">.card</span> <span class="attr-name">&gt;</span> <span class="tag-name">p</span> { <span class="attr-name">background</span>: <span class="attr-val">aqua</span>; }  <span class="comment">/* direct child only */</span></pre>
+
+  <h3 class="section-title">Specificity — Who Wins?</h3>
+  <p>When two rules target the same element, the browser scores each selector and applies the more specific one: <strong>inline style &gt; ID &gt; class / attribute / pseudo-class &gt; element</strong>. Equal specificity is resolved by whichever rule appears later in the stylesheet.</p>
+  <div class="box box-best">
+    <span class="box-title">Best Practice</span>
+    Style with classes, not IDs. IDs carry very high specificity and make later overrides painful — save ids for JavaScript hooks and unique page anchors, not styling.
+  </div>
+</div>
+
+<!-- ============ MODULE 4 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 04 / 18 &nbsp;·&nbsp; SELECTORS</div>
+    <h2>Pseudo-classes &amp; Pseudo-elements</h2>
+    <div class="desc">Styling states, positions, and generated content</div>
+  </div>
+
+  <h3 class="section-title">Pseudo-classes — a State or Condition</h3>
+<pre><span class="tag-name">a</span>:hover      { <span class="attr-name">color</span>: <span class="attr-val">crimson</span>; }
+<span class="tag-name">input</span>:focus   { <span class="attr-name">outline</span>: <span class="attr-val">2px solid teal</span>; }
+<span class="tag-name">li</span>:first-child { <span class="attr-name">font-weight</span>: <span class="attr-val">bold</span>; }
+<span class="tag-name">li</span>:nth-child(2) { <span class="attr-name">color</span>: <span class="attr-val">royalblue</span>; }
+<span class="tag-name">input</span>:disabled { <span class="attr-name">opacity</span>: <span class="attr-val">.5</span>; }</pre>
+
+  <h3 class="section-title">Pseudo-elements — a Part of an Element</h3>
+<pre><span class="tag-name">p</span>::first-letter { <span class="attr-name">font-size</span>: <span class="attr-val">2em</span>; }
+<span class="tag-name">p</span>::selection    { <span class="attr-name">background</span>: <span class="attr-val">yellow</span>; }
+<span class="tag-name">.badge</span>::before  { <span class="attr-name">content</span>: <span class="attr-val">"★ "</span>; }
+<span class="tag-name">.badge</span>::after   { <span class="attr-name">content</span>: <span class="attr-val">" New"</span>; }</pre>
+
+  <div class="box box-def">
+    <span class="box-title">Rule of thumb</span>
+    A single colon (:hover) is a pseudo-<em>class</em> — a state. A double colon (::before) is a pseudo-<em>element</em> — a generated part of the element.
+  </div>
+
+  <h4 class="sub-title">Common pseudo-classes to remember</h4>
+  <div class="checklist">
+    <ul>
+      <li>:hover</li>
+      <li>:focus</li>
+      <li>:active</li>
+      <li>:visited</li>
+      <li>:first-child / :last-child</li>
+      <li>:nth-child()</li>
+      <li>:checked</li>
+      <li>:disabled / :not()</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ MODULE 5 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 05 / 18 &nbsp;·&nbsp; VISUAL STYLING</div>
+    <h2>Colors &amp; Backgrounds</h2>
+    <div class="desc">Every way to describe a colour, and how to control backgrounds &amp; gradients</div>
+  </div>
+
+  <h3 class="section-title">Colour Formats</h3>
+  <table>
+    <tr><th>Format</th><th>Example</th><th>Notes</th></tr>
+    <tr><td>Named colour</td><td><code>red</code>, <code>tomato</code></td><td>147 predefined names</td></tr>
+    <tr><td>HEX</td><td><code>#ff0000</code></td><td>base-16, RRGGBB, 00–FF each channel</td></tr>
+    <tr><td>RGB</td><td><code>rgb(255,0,0)</code></td><td>0–255 per channel</td></tr>
+    <tr><td>RGBA</td><td><code>rgba(255,0,0,0.5)</code></td><td>adds alpha (transparency), 0–1</td></tr>
+    <tr><td>HSL</td><td><code>hsl(0,100%,50%)</code></td><td>hue (0–360°), saturation %, lightness %</td></tr>
+  </table>
+  <div class="box box-why">
+    <span class="box-title">Why HSL helps</span>
+    HSL is often the easiest format for designers to reason about — keep hue fixed and adjust lightness to get lighter or darker shades of the same colour.
+  </div>
+
+  <h3 class="section-title">Background Properties</h3>
+<pre><span class="tag-name">body</span> {
+  <span class="attr-name">background-color</span>: <span class="attr-val">#f4f4f4</span>;
+  <span class="attr-name">background-image</span>: <span class="attr-val">url("hero.jpg")</span>;
+  <span class="attr-name">background-size</span>: <span class="attr-val">cover</span>;      <span class="comment">/* cover | contain | 300px 200px */</span>
+  <span class="attr-name">background-position</span>: <span class="attr-val">center top</span>;
+  <span class="attr-name">background-repeat</span>: <span class="attr-val">no-repeat</span>;  <span class="comment">/* repeat-x | repeat-y */</span>
+  <span class="attr-name">background-attachment</span>: <span class="attr-val">fixed</span>;
+}
+<span class="comment">/* shorthand */</span>
+<span class="tag-name">body</span> { <span class="attr-name">background</span>: <span class="attr-val">#fff url("tree.png") no-repeat right top</span>; }</pre>
+
+  <h3 class="section-title">Gradients</h3>
+<pre><span class="tag-name">.linear</span> { <span class="attr-name">background-image</span>: <span class="attr-val">linear-gradient(90deg, #6c5ce7, #00cec9)</span>; }
+<span class="tag-name">.radial</span> { <span class="attr-name">background-image</span>: <span class="attr-val">radial-gradient(circle, white, purple)</span>; }</pre>
+</div>
+
+<!-- ============ MODULE 6 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 06 / 18 &nbsp;·&nbsp; VISUAL STYLING</div>
+    <h2>Typography &amp; Fonts</h2>
+    <div class="desc">Making text readable, consistent, and expressive</div>
+  </div>
+
+  <h3 class="section-title">Font Properties</h3>
+<pre><span class="tag-name">p</span> {
+  <span class="attr-name">font-family</span>: <span class="attr-val">'Poppins', Arial, sans-serif</span>; <span class="comment">/* always keep a fallback */</span>
+  <span class="attr-name">font-size</span>: <span class="attr-val">16px</span>;
+  <span class="attr-name">font-weight</span>: <span class="attr-val">600</span>;   <span class="comment">/* 100–900, or normal / bold */</span>
+  <span class="attr-name">font-style</span>: <span class="attr-val">italic</span>;
+  <span class="attr-name">line-height</span>: <span class="attr-val">1.6</span>;
+}</pre>
+  <p>Google Fonts can be linked in the <code>&lt;head&gt;</code>, or imported with <code>@import</code> inside CSS, to use custom typefaces.</p>
+
+  <h3 class="section-title">Text Formatting</h3>
+  <ul>
+    <li><code>text-align</code> — left / right / center / justify</li>
+    <li><code>text-decoration</code> — none / underline / line-through / overline</li>
+    <li><code>text-transform</code> — uppercase / lowercase / capitalize</li>
+    <li><code>letter-spacing</code> / <code>word-spacing</code> — tracking between characters or words</li>
+    <li><code>text-shadow: 2px 2px 4px rgba(0,0,0,.4);</code></li>
+  </ul>
+
+  <h3 class="section-title">Overflow &amp; Long Text</h3>
+<pre><span class="tag-name">.ellipsis</span> {
+  <span class="attr-name">white-space</span>: <span class="attr-val">nowrap</span>;
+  <span class="attr-name">overflow</span>: <span class="attr-val">hidden</span>;
+  <span class="attr-name">text-overflow</span>: <span class="attr-val">ellipsis</span>;   <span class="comment">/* shows "…" for clipped text */</span>
+}
+<span class="tag-name">.wrap</span>  { <span class="attr-name">word-wrap</span>: <span class="attr-val">break-word</span>; }
+<span class="tag-name">.break</span> { <span class="attr-name">word-break</span>: <span class="attr-val">break-all</span>; }</pre>
+</div>
+
+<!-- ============ MODULE 7 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 07 / 18 &nbsp;·&nbsp; LAYOUT FOUNDATIONS</div>
+    <h2>The Box Model</h2>
+    <div class="desc">Every HTML element is a rectangular box — margin, border, padding, content</div>
+  </div>
+
+  <div class="boxmodel">
+    <div class="lbl">margin</div>
+    <div class="b">
+      <div class="lbl">border</div>
+      <div class="p">
+        <div class="lbl">padding</div>
+        <div class="c">content</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">The Four Layers, Outside In</h3>
+  <ul>
+    <li><strong>Margin</strong> — transparent space outside the border, separating an element from its neighbours.</li>
+    <li><strong>Border</strong> — a visible (or invisible) line around the padding.</li>
+    <li><strong>Padding</strong> — space inside the border, between the border and the content.</li>
+    <li><strong>Content</strong> — the actual text, image, or nested elements.</li>
+  </ul>
+<pre><span class="tag-name">.box</span> {
+  <span class="attr-name">width</span>: <span class="attr-val">200px</span>;
+  <span class="attr-name">height</span>: <span class="attr-val">100px</span>;
+  <span class="attr-name">padding</span>: <span class="attr-val">20px</span>;
+  <span class="attr-name">border</span>: <span class="attr-val">4px solid #333</span>;
+  <span class="attr-name">margin</span>: <span class="attr-val">16px</span>;
+}</pre>
+
+  <h3 class="section-title">box-sizing</h3>
+  <p>By default (<code>content-box</code>), <code>width</code>/<code>height</code> apply only to the content — padding and border are added on top, so the element renders larger than the numbers suggest. Switching to <code>border-box</code> makes width/height include padding and border, which is far more predictable.</p>
+<pre><span class="tag-name">*, *::before, *::after</span> {
+  <span class="attr-name">box-sizing</span>: <span class="attr-val">border-box</span>; <span class="comment">/* common global reset */</span>
+}</pre>
+
+  <h3 class="section-title">Shorthand Order</h3>
+  <p><code>margin</code>, <code>padding</code> and <code>border-radius</code> shorthand values go clockwise: <strong>top, right, bottom, left</strong>.</p>
+<pre><span class="attr-name">margin</span>: <span class="attr-val">10px 20px</span>;        <span class="comment">/* top&bottom: 10px, left&right: 20px */</span>
+<span class="attr-name">margin</span>: <span class="attr-val">7px 10px 5px 9px</span>; <span class="comment">/* top right bottom left            */</span>
+<span class="attr-name">border-radius</span>: <span class="attr-val">12px 12px 0 0</span>; <span class="comment">/* rounded top corners only */</span></pre>
+</div>
+
+<!-- ============ MODULE 8 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 08 / 18 &nbsp;·&nbsp; LAYOUT FOUNDATIONS</div>
+    <h2>Display &amp; Position</h2>
+    <div class="desc">How an element behaves in the flow, and where it sits on the page</div>
+  </div>
+
+  <h3 class="section-title">Display</h3>
+  <table>
+    <tr><th>Value</th><th>Behaviour</th></tr>
+    <tr><td><code>block</code></td><td>starts on a new line, takes the full available width</td></tr>
+    <tr><td><code>inline</code></td><td>flows with surrounding text, ignores width/height</td></tr>
+    <tr><td><code>inline-block</code></td><td>flows inline, but accepts width, height, margin &amp; padding</td></tr>
+    <tr><td><code>none</code></td><td>removes the element from the page entirely (no space reserved)</td></tr>
+  </table>
+  <p><code>visibility:hidden</code> hides an element but still reserves its space — unlike <code>display:none</code>.</p>
+
+  <h3 class="section-title">Position</h3>
+  <table>
+    <tr><th>Value</th><th>Behaviour</th></tr>
+    <tr><td><code>static</code></td><td>default; ignores top/left/right/bottom</td></tr>
+    <tr><td><code>relative</code></td><td>moves relative to its own normal position; original space preserved</td></tr>
+    <tr><td><code>absolute</code></td><td>removed from normal flow; positioned relative to nearest positioned ancestor</td></tr>
+    <tr><td><code>fixed</code></td><td>positioned relative to the browser viewport; stays put on scroll</td></tr>
+    <tr><td><code>sticky</code></td><td>behaves like relative, then "sticks" like fixed after a scroll threshold</td></tr>
+  </table>
+<pre><span class="tag-name">.badge</span> { <span class="attr-name">position</span>: <span class="attr-val">absolute</span>; <span class="attr-name">top</span>: <span class="attr-val">-8px</span>; <span class="attr-name">right</span>: <span class="attr-val">-8px</span>; }
+<span class="tag-name">.parent</span> { <span class="attr-name">position</span>: <span class="attr-val">relative</span>; } <span class="comment">/* gives .badge something to anchor to */</span></pre>
+
+  <h3 class="section-title">z-index &amp; Overflow</h3>
+  <p><code>z-index</code> controls stacking order of overlapping elements — higher values sit above lower ones — but only works on positioned elements (anything other than <code>static</code>). <code>overflow</code> controls content bigger than its box: <code>visible</code> (default), <code>hidden</code>, <code>scroll</code>, or <code>auto</code>.</p>
+</div>
+
+<!-- ============ MODULE 9 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 09 / 18 &nbsp;·&nbsp; LAYOUT FOUNDATIONS</div>
+    <h2>CSS Units</h2>
+    <div class="desc">Choosing units that make a layout scale gracefully</div>
+  </div>
+
+  <h3 class="section-title">Absolute vs Relative</h3>
+  <table>
+    <tr><th>Unit</th><th>Type</th><th>Relative to</th></tr>
+    <tr><td><code>px</code></td><td>absolute</td><td>fixed pixel size, doesn't scale</td></tr>
+    <tr><td><code>%</code></td><td>relative</td><td>the parent element's size</td></tr>
+    <tr><td><code>em</code></td><td>relative</td><td>the current/parent element's font-size</td></tr>
+    <tr><td><code>rem</code></td><td>relative</td><td>the root <code>&lt;html&gt;</code> font-size — predictable across components</td></tr>
+    <tr><td><code>vw</code> / <code>vh</code></td><td>relative</td><td>1% of the viewport's width / height</td></tr>
+    <tr><td><code>vmin</code> / <code>vmax</code></td><td>relative</td><td>the smaller / larger of vw &amp; vh — useful on rotation</td></tr>
+  </table>
+  <div class="box box-def">
+    <span class="box-title">Example</span>
+    If the root font-size is 16px, 2rem is always 32px no matter how deeply nested the element is — whereas 2em depends on its own parent, so it can compound unexpectedly in nested components.
+  </div>
+
+  <h3 class="section-title">Modern Fluid Sizing</h3>
+<pre><span class="attr-name">font-size</span>: <span class="attr-val">clamp(1.5rem, 4vw, 3rem)</span>;
+<span class="comment">/* clamp(minimum, preferred/fluid, maximum) */</span>
+
+<span class="attr-name">width</span>: <span class="attr-val">min(92%, 1200px)</span>;   <span class="comment">/* whichever is smaller */</span>
+<span class="attr-name">height</span>: <span class="attr-val">max(300px, 40vh)</span>;  <span class="comment">/* whichever is larger  */</span></pre>
+  <div class="box box-best">
+    <span class="box-title">Best Practice</span>
+    clamp() is the modern replacement for writing several media queries just to resize a heading responsively.
+  </div>
+</div>
+
+<!-- ============ MODULE 10 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 10 / 18 &nbsp;·&nbsp; LAYOUT SYSTEMS</div>
+    <h2>Flexbox</h2>
+    <div class="desc">One-dimensional layout — the go-to tool for navbars, toolbars &amp; alignment</div>
+  </div>
+
+  <h3 class="section-title">Setting Up a Flex Container</h3>
+<pre><span class="tag-name">.container</span> {
+  <span class="attr-name">display</span>: <span class="attr-val">flex</span>;              <span class="comment">/* row is the default direction */</span>
+  <span class="attr-name">flex-direction</span>: <span class="attr-val">row</span>;        <span class="comment">/* row | row-reverse | column | column-reverse */</span>
+  <span class="attr-name">justify-content</span>: <span class="attr-val">center</span>;    <span class="comment">/* aligns along the MAIN axis */</span>
+  <span class="attr-name">align-items</span>: <span class="attr-val">center</span>;        <span class="comment">/* aligns along the CROSS axis */</span>
+  <span class="attr-name">flex-wrap</span>: <span class="attr-val">wrap</span>;            <span class="comment">/* allow items to wrap */</span>
+  <span class="attr-name">gap</span>: <span class="attr-val">20px</span>;                  <span class="comment">/* space between items */</span>
+}</pre>
+
+  <h3 class="section-title">Main Axis vs Cross Axis</h3>
+  <p>In <code>row</code> direction, the <strong>main axis</strong> runs horizontally and <code>justify-content</code> controls it; the <strong>cross axis</strong> runs vertically and <code>align-items</code> controls it. Switching to <code>column</code> swaps the two axes.</p>
+  <table>
+    <tr><th>justify-content</th><th>Effect</th></tr>
+    <tr><td><code>flex-start</code> / <code>flex-end</code></td><td>items pushed to one edge</td></tr>
+    <tr><td><code>center</code></td><td>items centred</td></tr>
+    <tr><td><code>space-between</code></td><td>first/last touch the edges, equal gaps between</td></tr>
+    <tr><td><code>space-around</code></td><td>equal space around each item</td></tr>
+    <tr><td><code>space-evenly</code></td><td>perfectly equal space everywhere, including the ends</td></tr>
+  </table>
+
+  <h3 class="section-title">Per-item Properties</h3>
+<pre><span class="tag-name">.item</span> {
+  <span class="attr-name">order</span>: <span class="attr-val">2</span>;           <span class="comment">/* re-orders visually without touching HTML */</span>
+  <span class="attr-name">flex-grow</span>: <span class="attr-val">1</span>;       <span class="comment">/* how much it expands to fill space */</span>
+  <span class="attr-name">flex-shrink</span>: <span class="attr-val">0</span>;     <span class="comment">/* whether it's allowed to shrink */</span>
+  <span class="attr-name">flex-basis</span>: <span class="attr-val">200px</span>;  <span class="comment">/* starting size before grow/shrink apply */</span>
+  <span class="attr-name">align-self</span>: <span class="attr-val">flex-end</span>; <span class="comment">/* overrides align-items for one item */</span>
+}</pre>
+</div>
+
+<!-- ============ MODULE 11 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 11 / 18 &nbsp;·&nbsp; LAYOUT SYSTEMS</div>
+    <h2>CSS Grid</h2>
+    <div class="desc">Two-dimensional layout — rows and columns together, for full page layouts</div>
+  </div>
+
+  <h3 class="section-title">Basic Grid</h3>
+<pre><span class="tag-name">.container</span> {
+  <span class="attr-name">display</span>: <span class="attr-val">grid</span>;
+  <span class="attr-name">grid-template-columns</span>: <span class="attr-val">repeat(3, 1fr)</span>; <span class="comment">/* 3 equal columns */</span>
+  <span class="attr-name">grid-template-rows</span>: <span class="attr-val">auto auto</span>;
+  <span class="attr-name">gap</span>: <span class="attr-val">20px</span>;
+}</pre>
+  <p>The <code>fr</code> unit divides remaining free space proportionally, after any fixed-size tracks are subtracted.</p>
+
+  <h3 class="section-title">Placing Items &amp; Areas</h3>
+<pre><span class="tag-name">.item</span> {
+  <span class="attr-name">grid-column</span>: <span class="attr-val">1 / 3</span>;   <span class="comment">/* spans from line 1 to line 3 */</span>
+  <span class="attr-name">grid-row</span>: <span class="attr-val">2</span>;
+}
+<span class="tag-name">.container</span> {
+  <span class="attr-name">grid-template-areas</span>:
+    <span class="attr-val">"sidebar header"
+    "sidebar main"</span>;
+}
+<span class="tag-name">.sidebar</span> { <span class="attr-name">grid-area</span>: <span class="attr-val">sidebar</span>; }</pre>
+
+  <h3 class="section-title">Responsive Grid Without Media Queries</h3>
+<pre><span class="tag-name">.container</span> {
+  <span class="attr-name">display</span>: <span class="attr-val">grid</span>;
+  <span class="attr-name">grid-template-columns</span>: <span class="attr-val">repeat(auto-fit, minmax(240px, 1fr))</span>;
+  <span class="attr-name">gap</span>: <span class="attr-val">20px</span>;
+}</pre>
+  <div class="box box-why">
+    <span class="box-title">Flexbox vs Grid</span>
+    Flexbox is one-dimensional and content-driven — great for a navbar or a button group. Grid is two-dimensional and layout-driven — great for the whole page skeleton.
+  </div>
+</div>
+
+<!-- ============ MODULE 12 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 12 / 18 &nbsp;·&nbsp; COMPONENTS</div>
+    <h2>Lists, Tables &amp; Forms</h2>
+    <div class="desc">Restyling the three elements with the heaviest browser defaults</div>
+  </div>
+
+  <h3 class="section-title">Lists</h3>
+<pre><span class="tag-name">ul</span> {
+  <span class="attr-name">list-style-type</span>: <span class="attr-val">none</span>;  <span class="comment">/* disc | circle | square | decimal | none */</span>
+  <span class="attr-name">padding</span>: <span class="attr-val">0</span>;
+}
+<span class="tag-name">li</span> { <span class="attr-name">margin-bottom</span>: <span class="attr-val">8px</span>; }</pre>
+
+  <h3 class="section-title">Tables</h3>
+<pre><span class="tag-name">table</span> { <span class="attr-name">border-collapse</span>: <span class="attr-val">collapse</span>; <span class="attr-name">width</span>: <span class="attr-val">100%</span>; }
+<span class="tag-name">th, td</span> { <span class="attr-name">border</span>: <span class="attr-val">1px solid #ddd</span>; <span class="attr-name">padding</span>: <span class="attr-val">10px</span>; <span class="attr-name">text-align</span>: <span class="attr-val">left</span>; }
+<span class="tag-name">thead</span> { <span class="attr-name">background</span>: <span class="attr-val">#f4f4f4</span>; }
+<span class="tag-name">tr</span>:nth-child(even) { <span class="attr-name">background</span>: <span class="attr-val">#fafafa</span>; } <span class="comment">/* zebra striping */</span></pre>
+  <p>Structure: <code>&lt;table&gt;</code> → <code>&lt;thead&gt;</code> (headings) &amp; <code>&lt;tbody&gt;</code> (data rows) → <code>&lt;tr&gt;</code> (row) → <code>&lt;th&gt;</code> / <code>&lt;td&gt;</code> (header / data cell).</p>
+
+  <h3 class="section-title">Forms</h3>
+<pre><span class="tag-name">input, textarea, select</span> {
+  <span class="attr-name">padding</span>: <span class="attr-val">10px 14px</span>;
+  <span class="attr-name">border</span>: <span class="attr-val">1px solid #ccc</span>;
+  <span class="attr-name">border-radius</span>: <span class="attr-val">8px</span>;
+  <span class="attr-name">font</span>: <span class="attr-val">inherit</span>;
+}
+<span class="tag-name">input</span>:focus {
+  <span class="attr-name">outline</span>: <span class="attr-val">none</span>;
+  <span class="attr-name">border-color</span>: <span class="attr-val">#2563eb</span>;
+  <span class="attr-name">box-shadow</span>: <span class="attr-val">0 0 0 3px rgba(37,99,235,.2)</span>;
+}
+<span class="tag-name">button</span>:disabled { <span class="attr-name">opacity</span>: <span class="attr-val">.5</span>; <span class="attr-name">cursor</span>: <span class="attr-val">not-allowed</span>; }</pre>
+  <div class="box box-why">
+    <span class="box-title">Accessibility</span>
+    Always keep a visible focus style — removing it without a replacement makes a form unusable for people navigating with a keyboard.
+  </div>
+</div>
+
+<!-- ============ MODULE 13 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 13 / 18 &nbsp;·&nbsp; RESPONSIVE DESIGN</div>
+    <h2>Responsive Design &amp; Media Queries</h2>
+    <div class="desc">Making one layout adapt from a small phone to a wide desktop monitor</div>
+  </div>
+
+  <h3 class="section-title">The Viewport Meta Tag</h3>
+  <p>Without this tag, mobile browsers render the page at desktop width and zoom out.</p>
+<pre>&lt;<span class="tag-name">meta</span> <span class="attr-name">name</span>=<span class="attr-val">"viewport"</span> <span class="attr-name">content</span>=<span class="attr-val">"width=device-width, initial-scale=1.0"</span>&gt;</pre>
+
+  <h3 class="section-title">Mobile-first Media Queries</h3>
+  <p>Write base CSS for small screens first, then layer on bigger-screen rules with <code>min-width</code> queries as the canvas grows.</p>
+<pre><span class="comment">/* base styles = mobile */</span>
+<span class="tag-name">.container</span> { <span class="attr-name">display</span>: <span class="attr-val">block</span>; }
+
+<span class="attr-name">@media</span> (<span class="attr-val">min-width: 768px</span>) {   <span class="comment">/* tablet and up */</span>
+  <span class="tag-name">.container</span> { <span class="attr-name">display</span>: <span class="attr-val">flex</span>; }
+}
+<span class="attr-name">@media</span> (<span class="attr-val">min-width: 1200px</span>) {  <span class="comment">/* desktop and up */</span>
+  <span class="tag-name">.container</span> { <span class="attr-name">max-width</span>: <span class="attr-val">1140px</span>; <span class="attr-name">margin</span>: <span class="attr-val">0 auto</span>; }
+}</pre>
+
+  <h3 class="section-title">Responsive Images &amp; Fluid Containers</h3>
+<pre><span class="tag-name">img</span> { <span class="attr-name">max-width</span>: <span class="attr-val">100%</span>; <span class="attr-name">height</span>: <span class="attr-val">auto</span>; <span class="attr-name">display</span>: <span class="attr-val">block</span>; }
+<span class="tag-name">.container</span> { <span class="attr-name">width</span>: <span class="attr-val">min(92%, 1200px)</span>; <span class="attr-name">margin</span>: <span class="attr-val">0 auto</span>; }</pre>
+  <p class="note-small">Common breakpoints: roughly 480px (mobile), 768px (tablet), 1200px (desktop) — but the right breakpoint is always wherever your own design starts to look cramped.</p>
+</div>
+
+<!-- ============ MODULE 14 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 14 / 18 &nbsp;·&nbsp; MOTION</div>
+    <h2>Transitions, Transforms &amp; Animation</h2>
+    <div class="desc">Bringing a page to life without JavaScript</div>
+  </div>
+
+  <h3 class="section-title">Transition — Smoothing a State Change</h3>
+<pre><span class="tag-name">button</span> {
+  <span class="attr-name">background</span>: <span class="attr-val">#2563eb</span>;
+  <span class="attr-name">transition</span>: <span class="attr-val">transform .2s ease, background .2s ease</span>;
+}
+<span class="tag-name">button</span>:hover {
+  <span class="attr-name">transform</span>: <span class="attr-val">translateY(-3px)</span>;
+  <span class="attr-name">background</span>: <span class="attr-val">#1d4ed8</span>;
+}</pre>
+  <p>A transition needs a <em>property</em>, a <em>duration</em>, and optionally a <em>timing-function</em> and <em>delay</em>. It only runs between two states.</p>
+
+  <h3 class="section-title">Transform — Move, Rotate, Scale, Skew</h3>
+<pre><span class="tag-name">.card</span>:hover {
+  <span class="attr-name">transform</span>: <span class="attr-val">translateY(-8px) scale(1.03) rotate(1deg)</span>;
+}
+<span class="tag-name">.tilt-3d</span> {
+  <span class="attr-name">transform</span>: <span class="attr-val">perspective(800px) rotateX(15deg) rotateY(-10deg)</span>;
+}</pre>
+  <p>Transforms don't affect normal page flow (no other element moves), which makes them fast and ideal for hover effects.</p>
+
+  <h3 class="section-title">Animation — Multi-step Motion with @keyframes</h3>
+<pre><span class="attr-name">@keyframes</span> <span class="attr-val">pulse</span> {
+  <span class="attr-val">0%</span>   { <span class="attr-name">transform</span>: <span class="attr-val">scale(1)</span>; }
+  <span class="attr-val">50%</span>  { <span class="attr-name">transform</span>: <span class="attr-val">scale(1.08)</span>; }
+  <span class="attr-val">100%</span> { <span class="attr-name">transform</span>: <span class="attr-val">scale(1)</span>; }
+}
+<span class="tag-name">.badge</span> { <span class="attr-name">animation</span>: <span class="attr-val">pulse 1.5s ease-in-out infinite</span>; }</pre>
+  <div class="box box-def">
+    <span class="box-title">Transition vs Animation</span>
+    Transition only moves between two states (usually default → hover). Animation can define any number of stopping points with @keyframes and can run automatically, without a hover or click to trigger it.
+  </div>
+</div>
+
+<!-- ============ MODULE 15 ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 15 / 18 &nbsp;·&nbsp; ADVANCED</div>
+    <h2>Advanced CSS &amp; Architecture</h2>
+    <div class="desc">Variables, modern effects, and keeping a growing project organised</div>
+  </div>
+
+  <h3 class="section-title">CSS Custom Properties (Variables)</h3>
+<pre><span class="tag-name">:root</span> {
+  <span class="attr-name">--primary</span>: <span class="attr-val">#6c5ce7</span>;
+  <span class="attr-name">--radius</span>: <span class="attr-val">16px</span>;
+  <span class="attr-name">--space</span>: <span class="attr-val">20px</span>;
+}
+<span class="tag-name">button</span> {
+  <span class="attr-name">background</span>: <span class="attr-val">var(--primary)</span>;
+  <span class="attr-name">border-radius</span>: <span class="attr-val">var(--radius)</span>;
+  <span class="attr-name">padding</span>: <span class="attr-val">var(--space)</span>;
+}</pre>
+
+  <h3 class="section-title">calc(), filter, object-fit &amp; More</h3>
+<pre><span class="attr-name">width</span>: <span class="attr-val">calc(100% - 40px)</span>;
+<span class="attr-name">filter</span>: <span class="attr-val">blur(4px) brightness(1.1) saturate(1.2)</span>;
+<span class="tag-name">img</span> { <span class="attr-name">object-fit</span>: <span class="attr-val">cover</span>; }        <span class="comment">/* crop image to fill box */</span>
+<span class="tag-name">.clip</span> { <span class="attr-name">clip-path</span>: <span class="attr-val">circle(50%)</span>; } <span class="comment">/* cut a custom shape */</span></pre>
+
+  <h3 class="section-title">Glassmorphism &amp; Shadows</h3>
+<pre><span class="attr-name">box-shadow</span>: <span class="attr-val">0 10px 30px rgba(0,0,0,.15)</span>;
+
+<span class="tag-name">.glass</span> {
+  <span class="attr-name">background</span>: <span class="attr-val">rgba(255,255,255,.18)</span>;
+  <span class="attr-name">backdrop-filter</span>: <span class="attr-val">blur(14px)</span>;
+  <span class="attr-name">border</span>: <span class="attr-val">1px solid rgba(255,255,255,.3)</span>;
+}</pre>
+
+  <h3 class="section-title">CSS Architecture — Naming with BEM</h3>
+<pre><span class="tag-name">.card</span> { }              <span class="comment">/* Block */</span>
+<span class="tag-name">.card__title</span> { }       <span class="comment">/* Element */</span>
+<span class="tag-name">.card--featured</span> { }    <span class="comment">/* Modifier */</span></pre>
+
+  <h3 class="section-title">Frameworks &amp; Preprocessors</h3>
+  <div class="grid3">
+    <div><strong>Bootstrap</strong>Ready-made components: navbars, cards, grid system.</div>
+    <div><strong>Tailwind CSS</strong>Utility classes composed directly in HTML.</div>
+    <div><strong>Sass / Less</strong>Preprocessors — variables, nesting, functions, compiled to plain CSS.</div>
+  </div>
+
+  <div class="box box-best">
+    <span class="box-title">Debugging tip</span>
+    Open browser DevTools (F12) and use the Elements panel — it shows every rule applying to a selected element, with overridden rules struck through, plus a live box-model diagram.
+  </div>
+</div>
+
+<!-- ============ MODULE 16 — MINI PROJECTS ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 16 / 18 &nbsp;·&nbsp; PROJECTS</div>
+    <h2>Mini Projects</h2>
+    <div class="desc">5 full, buildable projects that combine everything covered so far</div>
+  </div>
+
+  <h3 class="section-title">Mini Project 1 — Profile Card</h3>
+  <p>A centred card with an avatar, name, role and a follow button — practises the box model, border-radius, box-shadow and Flexbox centring.</p>
+<pre><span class="tag-name">body</span> { <span class="attr-name">display</span>: <span class="attr-val">flex</span>; <span class="attr-name">justify-content</span>: <span class="attr-val">center</span>; <span class="attr-name">align-items</span>: <span class="attr-val">center</span>; <span class="attr-name">min-height</span>: <span class="attr-val">100vh</span>; <span class="attr-name">background</span>: <span class="attr-val">#f0f2f5</span>; }
+<span class="tag-name">.card</span> {
+  <span class="attr-name">width</span>: <span class="attr-val">280px</span>; <span class="attr-name">text-align</span>: <span class="attr-val">center</span>; <span class="attr-name">background</span>: <span class="attr-val">#fff</span>;
+  <span class="attr-name">border-radius</span>: <span class="attr-val">16px</span>; <span class="attr-name">box-shadow</span>: <span class="attr-val">0 10px 30px rgba(0,0,0,.12)</span>; <span class="attr-name">padding</span>: <span class="attr-val">30px 20px</span>;
+}
+<span class="tag-name">.card img</span> { <span class="attr-name">width</span>: <span class="attr-val">90px</span>; <span class="attr-name">height</span>: <span class="attr-val">90px</span>; <span class="attr-name">border-radius</span>: <span class="attr-val">50%</span>; <span class="attr-name">object-fit</span>: <span class="attr-val">cover</span>; }
+<span class="tag-name">.card button</span> { <span class="attr-name">margin-top</span>: <span class="attr-val">14px</span>; <span class="attr-name">padding</span>: <span class="attr-val">10px 24px</span>; <span class="attr-name">border-radius</span>: <span class="attr-val">999px</span>; <span class="attr-name">border</span>: <span class="attr-val">none</span>; <span class="attr-name">background</span>: <span class="attr-val">#2563eb</span>; <span class="attr-name">color</span>: <span class="attr-val">#fff</span>; }</pre>
+  <div class="project-meta"><strong>Key concepts used:</strong> flex centring · circular image with object-fit · box-shadow · rounded pill button</div>
+
+  <h3 class="section-title">Mini Project 2 — Login Form</h3>
+  <p>A styled login form with labelled inputs, visible focus states and a disabled-state submit button.</p>
+<pre><span class="tag-name">.login</span> { <span class="attr-name">width</span>: <span class="attr-val">320px</span>; <span class="attr-name">margin</span>: <span class="attr-val">80px auto</span>; <span class="attr-name">padding</span>: <span class="attr-val">30px</span>; <span class="attr-name">border-radius</span>: <span class="attr-val">14px</span>; <span class="attr-name">box-shadow</span>: <span class="attr-val">0 8px 24px rgba(0,0,0,.1)</span>; }
+<span class="tag-name">.login label</span> { <span class="attr-name">display</span>: <span class="attr-val">block</span>; <span class="attr-name">font-size</span>: <span class="attr-val">.85rem</span>; <span class="attr-name">margin-bottom</span>: <span class="attr-val">6px</span>; }
+<span class="tag-name">.login input</span> { <span class="attr-name">width</span>: <span class="attr-val">100%</span>; <span class="attr-name">padding</span>: <span class="attr-val">10px 12px</span>; <span class="attr-name">margin-bottom</span>: <span class="attr-val">18px</span>; <span class="attr-name">border</span>: <span class="attr-val">1px solid #ccc</span>; <span class="attr-name">border-radius</span>: <span class="attr-val">8px</span>; }
+<span class="tag-name">.login input</span>:focus { <span class="attr-name">border-color</span>: <span class="attr-val">#2563eb</span>; <span class="attr-name">outline</span>: <span class="attr-val">none</span>; <span class="attr-name">box-shadow</span>: <span class="attr-val">0 0 0 3px rgba(37,99,235,.2)</span>; }</pre>
+  <div class="project-meta"><strong>Key concepts used:</strong> forms · box model · :focus pseudo-class · box-shadow rings</div>
+
+  <h3 class="section-title">Mini Project 3 — Product Card Grid</h3>
+  <p>A responsive grid of product cards, each lifting on hover.</p>
+<pre><span class="tag-name">.grid</span> { <span class="attr-name">display</span>: <span class="attr-val">grid</span>; <span class="attr-name">grid-template-columns</span>: <span class="attr-val">repeat(auto-fit, minmax(220px, 1fr))</span>; <span class="attr-name">gap</span>: <span class="attr-val">20px</span>; }
+<span class="tag-name">.product</span> { <span class="attr-name">background</span>: <span class="attr-val">#fff</span>; <span class="attr-name">border-radius</span>: <span class="attr-val">12px</span>; <span class="attr-name">overflow</span>: <span class="attr-val">hidden</span>; <span class="attr-name">box-shadow</span>: <span class="attr-val">0 6px 18px rgba(0,0,0,.08)</span>; <span class="attr-name">transition</span>: <span class="attr-val">transform .2s ease</span>; }
+<span class="tag-name">.product</span>:hover { <span class="attr-name">transform</span>: <span class="attr-val">translateY(-6px)</span>; }</pre>
+  <div class="project-meta"><strong>Key concepts used:</strong> CSS Grid auto-fit/minmax · transition + transform hover · overflow:hidden for rounded images</div>
+
+  <h3 class="section-title">Mini Project 4 — Restaurant Landing Page</h3>
+  <p>A full page: sticky navbar, hero section, a menu table, and a footer with contact links.</p>
+<pre><span class="tag-name">.navbar</span> { <span class="attr-name">position</span>: <span class="attr-val">sticky</span>; <span class="attr-name">top</span>: <span class="attr-val">0</span>; <span class="attr-name">display</span>: <span class="attr-val">flex</span>; <span class="attr-name">justify-content</span>: <span class="attr-val">space-between</span>; <span class="attr-name">align-items</span>: <span class="attr-val">center</span>; <span class="attr-name">padding</span>: <span class="attr-val">16px 40px</span>; <span class="attr-name">background</span>: <span class="attr-val">#14213D</span>; }
+<span class="tag-name">.hero</span> { <span class="attr-name">min-height</span>: <span class="attr-val">70vh</span>; <span class="attr-name">display</span>: <span class="attr-val">flex</span>; <span class="attr-name">flex-direction</span>: <span class="attr-val">column</span>; <span class="attr-name">justify-content</span>: <span class="attr-val">center</span>; <span class="attr-name">align-items</span>: <span class="attr-val">center</span>; <span class="attr-name">text-align</span>: <span class="attr-val">center</span>; <span class="attr-name">background</span>: <span class="attr-val">url("hero.jpg") center/cover</span>; }
+<span class="tag-name">.menu table</span> { <span class="attr-name">width</span>: <span class="attr-val">100%</span>; <span class="attr-name">border-collapse</span>: <span class="attr-val">collapse</span>; }</pre>
+  <div class="project-meta"><strong>Key concepts used:</strong> position:sticky navbar · flex hero centring · background-size:cover · table styling</div>
+
+  <h3 class="section-title">Mini Project 5 — Responsive Pricing Section</h3>
+  <p>Three pricing cards in a grid, with a "featured" modifier class that highlights the middle plan.</p>
+<pre><span class="tag-name">.pricing</span> { <span class="attr-name">display</span>: <span class="attr-val">grid</span>; <span class="attr-name">grid-template-columns</span>: <span class="attr-val">repeat(auto-fit, minmax(240px, 1fr))</span>; <span class="attr-name">gap</span>: <span class="attr-val">24px</span>; }
+<span class="tag-name">.plan--featured</span> { <span class="attr-name">transform</span>: <span class="attr-val">scale(1.05)</span>; <span class="attr-name">border</span>: <span class="attr-val">2px solid #6c5ce7</span>; }
+<span class="attr-name">@media</span> (<span class="attr-val">max-width: 600px</span>) { <span class="tag-name">.plan--featured</span> { <span class="attr-name">transform</span>: <span class="attr-val">none</span>; } }</pre>
+  <div class="project-meta"><strong>Key concepts used:</strong> responsive grid · BEM modifier class · media query overriding a transform on small screens</div>
+</div>
+
+<!-- ============ MODULE 17 — INTERVIEW QUESTIONS ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 17 / 18 &nbsp;·&nbsp; INTERVIEW PREP</div>
+    <h2>Interview Questions</h2>
+    <div class="desc">30 beginner-friendly CSS questions asked in real interviews</div>
+  </div>
+
+  <h3 class="section-title">Questions 1–6</h3>
+  <div class="qa-block"><span class="qnum">1</span><span class="q">What does CSS stand for?</span><div class="a">Cascading Style Sheets.</div></div>
+  <div class="qa-block"><span class="qnum">2</span><span class="q">Who created CSS?</span><div class="a">Håkon Wium Lie proposed it; it was standardised by the W3C.</div></div>
+  <div class="qa-block"><span class="qnum">3</span><span class="q">What does "cascading" mean in CSS?</span><div class="a">Conflicting rules are resolved in a predictable order: source order, specificity, then !important.</div></div>
+  <div class="qa-block"><span class="qnum">4</span><span class="q">What are the three ways to add CSS?</span><div class="a">Inline, internal (in a &lt;style&gt; tag), and external (a linked .css file).</div></div>
+  <div class="qa-block"><span class="qnum">5</span><span class="q">Which type of CSS has the highest priority?</span><div class="a">Inline CSS — unless a rule elsewhere uses !important.</div></div>
+  <div class="qa-block"><span class="qnum">6</span><span class="q">What is a CSS selector?</span><div class="a">A pattern used to target the HTML element(s) a rule should apply to.</div></div>
+
+  <h3 class="section-title">Questions 7–12</h3>
+  <div class="qa-block"><span class="qnum">7</span><span class="q">Difference between class and id selectors?</span><div class="a">A class can be reused on many elements; an id must be unique to one element per page.</div></div>
+  <div class="qa-block"><span class="qnum">8</span><span class="q">What is specificity?</span><div class="a">A scoring system deciding which rule wins when several target the same element.</div></div>
+  <div class="qa-block"><span class="qnum">9</span><span class="q">Difference between a pseudo-class and a pseudo-element?</span><div class="a">A pseudo-class (:hover) targets a state; a pseudo-element (::before) targets a generated part of an element.</div></div>
+  <div class="qa-block"><span class="qnum">10</span><span class="q">What does the box model consist of?</span><div class="a">Content, padding, border and margin, from the inside out.</div></div>
+  <div class="qa-block"><span class="qnum">11</span><span class="q">What does box-sizing: border-box do?</span><div class="a">Makes width/height include padding and border, instead of adding them on top.</div></div>
+  <div class="qa-block"><span class="qnum">12</span><span class="q">Difference between margin and padding?</span><div class="a">Margin is space outside an element's border; padding is space inside it, before the content.</div></div>
+
+  <h3 class="section-title">Questions 13–18</h3>
+  <div class="qa-block"><span class="qnum">13</span><span class="q">Difference between block, inline and inline-block?</span><div class="a">Block takes full width and starts a new line; inline flows with text and ignores size; inline-block flows inline but accepts width/height.</div></div>
+  <div class="qa-block"><span class="qnum">14</span><span class="q">Difference between position:relative and position:absolute?</span><div class="a">Relative shifts an element from its own position and keeps its space; absolute removes it from flow and positions it against the nearest positioned ancestor.</div></div>
+  <div class="qa-block"><span class="qnum">15</span><span class="q">What does z-index require to work?</span><div class="a">The element must have a position value other than static.</div></div>
+  <div class="qa-block"><span class="qnum">16</span><span class="q">Difference between em and rem?</span><div class="a">em is relative to the parent's font-size; rem is relative to the root &lt;html&gt; font-size.</div></div>
+  <div class="qa-block"><span class="qnum">17</span><span class="q">What is the difference between visibility:hidden and display:none?</span><div class="a">visibility:hidden hides an element but keeps its space; display:none removes it entirely.</div></div>
+  <div class="qa-block"><span class="qnum">18</span><span class="q">What is the purpose of the viewport meta tag?</span><div class="a">Makes a page render at the correct scale on mobile devices instead of zoomed-out desktop width.</div></div>
+
+  <h3 class="section-title">Questions 19–24</h3>
+  <div class="qa-block"><span class="qnum">19</span><span class="q">What is Flexbox used for?</span><div class="a">One-dimensional layout — aligning items in a single row or column.</div></div>
+  <div class="qa-block"><span class="qnum">20</span><span class="q">What is the main axis in Flexbox?</span><div class="a">The primary direction items are laid out in — horizontal by default (row), controlled by justify-content.</div></div>
+  <div class="qa-block"><span class="qnum">21</span><span class="q">When would you choose Grid over Flexbox?</span><div class="a">When you need to control layout in two dimensions (rows and columns) at once, like a full page skeleton.</div></div>
+  <div class="qa-block"><span class="qnum">22</span><span class="q">What does the fr unit mean in CSS Grid?</span><div class="a">A fraction of the remaining free space in the grid container.</div></div>
+  <div class="qa-block"><span class="qnum">23</span><span class="q">What is a media query?</span><div class="a">A CSS rule that applies styles only when a condition, like a minimum viewport width, is met.</div></div>
+  <div class="qa-block"><span class="qnum">24</span><span class="q">What does "mobile-first" mean?</span><div class="a">Writing base CSS for small screens first, then adding larger-screen rules with min-width media queries.</div></div>
+
+  <h3 class="section-title">Questions 25–30</h3>
+  <div class="qa-block"><span class="qnum">25</span><span class="q">Difference between transition and animation?</span><div class="a">Transition moves between two states (e.g. on hover); animation uses @keyframes and can run multiple steps automatically.</div></div>
+  <div class="qa-block"><span class="qnum">26</span><span class="q">What does the transform property do?</span><div class="a">Moves, rotates, scales or skews an element without affecting the normal page flow.</div></div>
+  <div class="qa-block"><span class="qnum">27</span><span class="q">What is a CSS custom property (variable)?</span><div class="a">A reusable value defined with -- and read with var(), e.g. --primary and var(--primary).</div></div>
+  <div class="qa-block"><span class="qnum">28</span><span class="q">What does calc() let you do?</span><div class="a">Mix units in one expression, e.g. width: calc(100% - 40px).</div></div>
+  <div class="qa-block"><span class="qnum">29</span><span class="q">What is the difference between a CSS framework and a preprocessor?</span><div class="a">A framework (Bootstrap, Tailwind) ships ready-made styles/classes; a preprocessor (Sass, Less) is a language that compiles into plain CSS.</div></div>
+  <div class="qa-block"><span class="qnum">30</span><span class="q">Why should you avoid overusing !important?</span><div class="a">It overrides the normal cascade, making future styles harder to predict and override.</div></div>
+</div>
+
+<!-- ============ MODULE 18 — PRACTICE + RECAP ============ -->
+<div class="module">
+  <div class="module-head">
+    <div class="eyebrow">MODULE 18 / 18 &nbsp;·&nbsp; PRACTICE &amp; RECAP</div>
+    <h2>Practice Roadmap, Recap &amp; Cheat Sheet</h2>
+    <div class="desc">A guided path forward, and everything you've covered at a glance</div>
+  </div>
+
+  <h3 class="section-title">Suggested Practice Path</h3>
+  <div class="practice-item easy"><span class="level-tag">🟢 EASY —</span>Style a basic page: heading colours, font-family, spacing</div>
+  <div class="practice-item easy"><span class="level-tag">🟢 EASY —</span>Build a bulleted "favourites" list with custom list-style</div>
+  <div class="practice-item medium"><span class="level-tag">🟡 MEDIUM —</span>Centre a card both vertically and horizontally with Flexbox</div>
+  <div class="practice-item medium"><span class="level-tag">🟡 MEDIUM —</span>Build a 3-column responsive card grid with CSS Grid</div>
+  <div class="practice-item advanced"><span class="level-tag">🔴 ADVANCED —</span>Combine navbar + hero + grid + footer into one responsive landing page</div>
+  <div class="practice-item advanced"><span class="level-tag">🔴 ADVANCED —</span>Rebuild one Mini Project from Module 16 without looking at these notes!</div>
+
+  <h3 class="section-title">18-Module Course Recap</h3>
+  <div class="grid3">
+    <div><span class="num-badge">1</span><strong>Introduction</strong>History, the web trio, syntax</div>
+    <div><span class="num-badge">2</span><strong>Adding CSS</strong>Inline, internal, external, priority</div>
+    <div><span class="num-badge">3</span><strong>Selectors</strong>Class, id, combinators, specificity</div>
+    <div><span class="num-badge">4</span><strong>Pseudo-*</strong>States &amp; generated content</div>
+    <div><span class="num-badge">5</span><strong>Colors &amp; BG</strong>HEX/RGB/HSL, gradients</div>
+    <div><span class="num-badge">6</span><strong>Typography</strong>Fonts, text formatting</div>
+    <div><span class="num-badge">7</span><strong>Box Model</strong>Margin, border, padding, content</div>
+    <div><span class="num-badge">8</span><strong>Display &amp; Position</strong>Flow &amp; placement</div>
+    <div><span class="num-badge">9</span><strong>Units</strong>px, %, em, rem, vw/vh, clamp()</div>
+    <div><span class="num-badge">10</span><strong>Flexbox</strong>One-dimensional layout</div>
+    <div><span class="num-badge">11</span><strong>Grid</strong>Two-dimensional layout</div>
+    <div><span class="num-badge">12</span><strong>Lists/Tables/Forms</strong>Component styling</div>
+  </div>
+  <div class="grid3">
+    <div><span class="num-badge">13</span><strong>Responsive</strong>Media queries, mobile-first</div>
+    <div><span class="num-badge">14</span><strong>Motion</strong>Transition, transform, animation</div>
+    <div><span class="num-badge">15</span><strong>Advanced</strong>Variables, architecture, tooling</div>
+    <div><span class="num-badge">16</span><strong>Projects</strong>5 hands-on builds</div>
+    <div><span class="num-badge">17</span><strong>Interview Prep</strong>30 Q&amp;A</div>
+    <div><span class="num-badge">18</span><strong>Recap</strong>This page!</div>
+  </div>
+
+  <h3 class="section-title">Quick Reference — Most-Used Properties</h3>
+  <table>
+    <tr><th>Property</th><th>Use</th></tr>
+    <tr><td><code>color, background, font-*</code></td><td>Text &amp; typography styling</td></tr>
+    <tr><td><code>margin, padding, border, box-sizing</code></td><td>Box model &amp; spacing</td></tr>
+    <tr><td><code>display, position, z-index</code></td><td>Flow &amp; placement</td></tr>
+    <tr><td><code>display:flex, justify-content, align-items</code></td><td>Flexbox layout</td></tr>
+    <tr><td><code>display:grid, grid-template-columns, gap</code></td><td>Grid layout</td></tr>
+    <tr><td><code>@media (min-width: ...)</code></td><td>Responsive breakpoints</td></tr>
+    <tr><td><code>transition, transform, @keyframes</code></td><td>Motion &amp; animation</td></tr>
+    <tr><td><code>:root, var(--x)</code></td><td>Reusable design tokens</td></tr>
+  </table>
+
+  <h3 class="section-title">Final Checklist Before You Ship a Page</h3>
+  <ul class="checklist">
+    <li>Responsive on mobile, tablet and desktop</li>
+    <li>Consistent spacing and typography scale</li>
+    <li>Keyboard focus states are visible</li>
+    <li>Images scale correctly with max-width: 100%</li>
+    <li>No unwanted horizontal scroll</li>
+    <li>Reusable classes instead of one-off styles</li>
+    <li>box-sizing: border-box applied globally</li>
+    <li>Motion is smooth but not excessive</li>
+  </ul>
+</div>
+
+<!-- ============ FINAL PAGE ============ -->
+<div class="final-page">
+  <div style="font-family:'Courier New',monospace; font-size:14pt; color:#FCA311; margin-bottom:0.3cm;">&lt;/&gt;</div>
+  <h2>Thank You</h2>
+  <p>Keep Building. Keep Styling. Keep Shipping.</p>
+  <p style="margin-top:0.6cm; font-size:9.5pt;">CSS Masterclass &nbsp;•&nbsp; Style Today, Animate &amp; Interact Tomorrow (Advanced CSS &amp; JavaScript)</p>
+</div>
+
+</body>
+</html>
